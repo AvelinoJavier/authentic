@@ -1,0 +1,192 @@
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Submit"
+msgstr "Guardar"
+
+msgid "View"
+msgstr "Visualizar"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Are you sure you want to delete # {0}?"
+msgstr "¿Seguro que quieres eliminar # {0}?"
+
+msgid "first"
+msgstr "primero"
+
+msgid "previous"
+msgstr "anterior"
+
+msgid "next"
+msgstr "siguiente"
+
+msgid "last"
+msgstr "último"
+
+msgid "last"
+msgstr "último"
+
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} en total"
+
+msgid "Please enter your email and password"
+msgstr "Por favor ingrese su email y contraseña"
+
+##########modules##########
+
+msgid "Modules"
+msgstr "Módulos"
+
+msgid "New Module"
+msgstr "Nuevo Módulo"
+
+msgid "List Modules"
+msgstr "Listar Módulos"
+
+msgid "Add Module"
+msgstr "Agregar Módulo"
+
+msgid "Edit Module"
+msgstr "Editar Módulo"
+
+msgid "Delete Module"
+msgstr "Eliminar Módulo"
+
+msgid "The module has been saved."
+msgstr "El módulo ha sido guardado."
+
+msgid "The module could not be saved. Please, try again."
+msgstr "El módulo no ha podido ser guardado. Por favor, pruebe de nuevo."
+
+msgid "The module has been deleted."
+msgstr "El módulo ha sido eliminado."
+
+msgid "The module could not be deleted. Please, try again."
+msgstr "El módulo no ha podido ser eliminado. Por favor, pruebe de nuevo."
+
+##########roles##########
+
+msgid "Roles"
+msgstr "Roles"
+
+msgid "New Role"
+msgstr "Nuevo Rol"
+
+msgid "List Roles"
+msgstr "Listar Roles"
+
+msgid "Add Role"
+msgstr "Agregar Rol"
+
+msgid "Edit Role"
+msgstr "Editar Rol"
+
+msgid "Delete Role"
+msgstr "Eliminar Rol"
+
+msgid "The role has been saved."
+msgstr "El rol ha sido guardado."
+
+msgid "The role could not be saved. Please, try again."
+msgstr "El rol no ha podido ser guardado. Por favor, pruebe de nuevo."
+
+msgid "The role has been deleted."
+msgstr "El rol ha sido eliminado."
+
+msgid "The role could not be deleted. Please, try again."
+msgstr "El rol no ha podido ser eliminado. Por favor, pruebe de nuevo."
+
+##########permissions##########
+
+msgid "Permissions"
+msgstr "Permisos"
+
+msgid "New Permission"
+msgstr "Nuevo Permiso"
+
+msgid "List Permissions"
+msgstr "Listar Permisos"
+
+msgid "Add Permission"
+msgstr "Agregar Permiso"
+
+msgid "Edit Permission"
+msgstr "Editar Permiso"
+
+msgid "Delete Permission"
+msgstr "Eliminar Permiso"
+
+msgid "The permission has been saved."
+msgstr "El permiso ha sido guardado."
+
+msgid "The permission could not be saved. Please, try again."
+msgstr "El permiso no ha podido ser guardado. Por favor, pruebe de nuevo."
+
+msgid "The permission has been deleted."
+msgstr "El permiso ha sido eliminado."
+
+msgid "The permission could not be deleted. Please, try again."
+msgstr "El permiso no ha podido ser eliminado. Por favor, pruebe de nuevo."
+
+##########users##########
+
+msgid "Users"
+msgstr "Usuarios"
+
+msgid "New User"
+msgstr "Nuevo Usuario"
+
+msgid "List Users"
+msgstr "Listar Usuarios"
+
+msgid "Add User"
+msgstr "Agregar Usuario"
+
+msgid "Edit User"
+msgstr "Editar Usuario"
+
+msgid "Delete User"
+msgstr "Eliminar Usuario"
+
+msgid "The user has been saved."
+msgstr "El usuario ha sido guardado."
+
+msgid "The user could not be saved. Please, try again."
+msgstr "El usuario no ha podido ser guardado. Por favor, pruebe de nuevo."
+
+msgid "The user has been deleted."
+msgstr "El usuario ha sido eliminado."
+
+msgid "The user could not be deleted. Please, try again."
+msgstr "El usuario no ha podido ser eliminado. Por favor, pruebe de nuevo."
+
+##########
+
+msgid "code"
+msgstr "código"
+
+msgid "Code"
+msgstr "Código"
+
+msgid "name"
+msgstr "nombre"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "table_name"
+msgstr "Nombre Tabla"
+
+msgid "Table Name"
+msgstr "Nombre Tabla"
+
+msgid "created"
+msgstr "creado"
+
+msgid "Ir a Módulo"
+msgstr "Ir a Módulo"
