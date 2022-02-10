@@ -43,15 +43,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="top-nav-title">
             <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
         </div>
-        <div class="dropdown">
-            <input type="checkbox" id="ct">
-            <label class="button" for="ct"><?= __('Ir a Módulo') ?></label>
-            <ul>
-                <?php foreach ($allModules as $module) : ?>
-                    <li><a href="<?= $this->Url->build('/' . $module->table_name) ?>"><?= $module->name ?></a></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
+        <?= $this->cell('ModulesDropdown')->render() ?>
         <div class="top-nav-links">
             <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Documentation</a>
             <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>

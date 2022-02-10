@@ -52,13 +52,4 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
     }
-
-    public function beforeFilter(EventInterface $event)
-    {
-        $allModules = $this->fetchTable('Modules')->find(
-            'all',
-            ['order' => 'Modules.name ASC']
-        );
-        $this->set($allModules);
-    }
 }
