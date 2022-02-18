@@ -34,10 +34,48 @@ msgstr "último"
 msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
 msgstr "Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} en total"
 
+##########
+
 msgid "Please enter your email and password"
 msgstr "Por favor ingrese su email y contraseña"
 
-##########modules##########
+msgid "code"
+msgstr "código"
+
+msgid "Code"
+msgstr "Código"
+
+msgid "name"
+msgstr "nombre"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "table_name"
+msgstr "Nombre Tabla"
+
+msgid "Table Name"
+msgstr "Nombre Tabla"
+
+msgid "created"
+msgstr "creado"
+
+msgid "Ir a Módulo"
+msgstr "Ir a Módulo"
+
+msgid "Cerrar Sesión"
+msgstr "Cerrar Sesión"
+
+msgid "Buscar"
+msgstr "Buscar"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Login"
+msgstr "Ingresar"
+
+########## modules ##########
 
 msgid "Modules"
 msgstr "Módulos"
@@ -69,7 +107,7 @@ msgstr "El módulo ha sido eliminado."
 msgid "The module could not be deleted. Please, try again."
 msgstr "El módulo no ha podido ser eliminado. Por favor, pruebe de nuevo."
 
-##########roles##########
+########## roles ##########
 
 msgid "Roles"
 msgstr "Roles"
@@ -101,7 +139,7 @@ msgstr "El rol ha sido eliminado."
 msgid "The role could not be deleted. Please, try again."
 msgstr "El rol no ha podido ser eliminado. Por favor, pruebe de nuevo."
 
-##########permissions##########
+########## permissions ##########
 
 msgid "Permissions"
 msgstr "Permisos"
@@ -133,7 +171,7 @@ msgstr "El permiso ha sido eliminado."
 msgid "The permission could not be deleted. Please, try again."
 msgstr "El permiso no ha podido ser eliminado. Por favor, pruebe de nuevo."
 
-##########users##########
+########## users ##########
 
 msgid "Users"
 msgstr "Usuarios"
@@ -164,29 +202,3 @@ msgstr "El usuario ha sido eliminado."
 
 msgid "The user could not be deleted. Please, try again."
 msgstr "El usuario no ha podido ser eliminado. Por favor, pruebe de nuevo."
-
-##########
-
-msgid "code"
-msgstr "código"
-
-msgid "Code"
-msgstr "Código"
-
-msgid "name"
-msgstr "nombre"
-
-msgid "Name"
-msgstr "Nombre"
-
-msgid "table_name"
-msgstr "Nombre Tabla"
-
-msgid "Table Name"
-msgstr "Nombre Tabla"
-
-msgid "created"
-msgstr "creado"
-
-msgid "Ir a Módulo"
-msgstr "Ir a Módulo"

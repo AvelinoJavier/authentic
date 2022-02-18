@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -46,6 +47,19 @@ class ModulesTable extends Table
         $this->hasMany('Permissions', [
             'foreignKey' => 'module_id',
         ]);
+
+        $this->addBehavior('Search.Search');
+
+        $this->searchManager()
+            ->add('search', 'Search.Like', [
+                'before' => true,
+                'after' => true,
+                'mode' => 'or',
+                'comparison' => 'LIKE',
+                'wildcardAny' => '*',
+                'wildcardOne' => '?',
+                'fields' => ['code', 'name', 'table_name'],
+            ]);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -7,6 +8,7 @@ namespace App\Controller;
  * Modules Controller
  *
  * @property \App\Model\Table\ModulesTable $Modules
+ * @property \App\Model\Filter\modulesFilterCollection $modulesFilterCollection
  * @method \App\Model\Entity\Module[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class ModulesController extends AppController
@@ -18,9 +20,10 @@ class ModulesController extends AppController
      */
     public function index()
     {
-        $modules = $this->paginate($this->Modules);
+        $query = $this->Modules
+            ->find('search', ['search' => $this->request->getQueryParams()]);
 
-        $this->set(compact('modules'));
+        $this->set('modules', $this->paginate($query));
     }
 
     /**
@@ -101,5 +104,14 @@ class ModulesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        $this->loadComponent('Search.Search', [
+            'actions' => ['index'],
+        ]);
     }
 }

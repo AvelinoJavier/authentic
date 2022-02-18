@@ -31,23 +31,22 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
+    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake', 'all.min']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
+    <?= $this->Html->script('jquery-3.6.0.min') ?>
     <?= $this->Html->script('script') ?>
 </head>
 
 <body>
     <nav class="top-nav">
-        <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
-        </div>
-        <?= $this->cell('ModulesDropdown')->render() ?>
-        <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Documentation</a>
-            <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
-        </div>
+        <?php if ($user != null) { ?>
+            <?= $this->cell('ModulesDropdown')->render() ?>
+            <div class="top-nav-links">
+                <a href="<?= $this->Url->build('/users/logout') ?>"><?= __('Cerrar Sesión') ?></a>
+            </div>
+        <?php } ?>
     </nav>
     <main class="main">
         <div class="container">
