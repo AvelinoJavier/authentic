@@ -34,7 +34,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Permissions'],
+            'contain' => ['Permissions', 'Roles'],
         ]);
 
         $this->set(compact('user'));
@@ -57,7 +57,7 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $permissions = $this->Users->Permissions->find('list', ['limit' => 200])->all();
+        $permissions = $this->Users->Permissions->find('list', ['limit' => 200])->contain('Modules')->all();
         $this->set(compact('user', 'permissions'));
     }
 
@@ -82,7 +82,7 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $permissions = $this->Users->Permissions->find('list', ['limit' => 200])->all();
+        $permissions = $this->Users->Permissions->find('list', ['limit' => 200])->contain('Modules')->all();
         $this->set(compact('user', 'permissions'));
     }
 

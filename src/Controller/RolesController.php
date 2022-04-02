@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -33,7 +34,7 @@ class RolesController extends AppController
     public function view($id = null)
     {
         $role = $this->Roles->get($id, [
-            'contain' => ['Permissions'],
+            'contain' => ['Permissions', 'Users'],
         ]);
 
         $this->set(compact('role'));
@@ -56,8 +57,9 @@ class RolesController extends AppController
             }
             $this->Flash->error(__('The role could not be saved. Please, try again.'));
         }
-        $permissions = $this->Roles->Permissions->find('list', ['limit' => 200])->all();
-        $this->set(compact('role', 'permissions'));
+        $permissions = $this->Roles->Permissions->find('list', ['limit' => 200])->contain('Modules')->all();
+        $users = $this->Roles->Users->find('list', ['limit' => 200])->all();
+        $this->set(compact('role', 'permissions', 'users'));
     }
 
     /**
@@ -70,7 +72,7 @@ class RolesController extends AppController
     public function edit($id = null)
     {
         $role = $this->Roles->get($id, [
-            'contain' => ['Permissions'],
+            'contain' => ['Permissions', 'Users'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $role = $this->Roles->patchEntity($role, $this->request->getData());
@@ -81,8 +83,9 @@ class RolesController extends AppController
             }
             $this->Flash->error(__('The role could not be saved. Please, try again.'));
         }
-        $permissions = $this->Roles->Permissions->find('list', ['limit' => 200])->all();
-        $this->set(compact('role', 'permissions'));
+        $permissions = $this->Roles->Permissions->find('list', ['limit' => 200])->contain('Modules')->all();
+        $users = $this->Roles->Users->find('list', ['limit' => 200])->all();
+        $this->set(compact('role', 'permissions', 'users'));
     }
 
     /**

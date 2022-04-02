@@ -19,10 +19,6 @@
             <h3><?= h($module->id) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('Code') ?></th>
-                    <td><?= h($module->code) ?></td>
-                </tr>
-                <tr>
                     <th><?= __('Name') ?></th>
                     <td><?= h($module->name) ?></td>
                 </tr>
@@ -43,7 +39,6 @@
                         <tr>
                             <th><?= __('Id') ?></th>
                             <th><?= __('Action') ?></th>
-                            <th><?= __('Controller') ?></th>
                             <th><?= __('Module Id') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
@@ -51,7 +46,6 @@
                         <tr>
                             <td><?= h($permissions->id) ?></td>
                             <td><?= h($permissions->action) ?></td>
-                            <td><?= h($permissions->controller) ?></td>
                             <td><?= h($permissions->module_id) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'Permissions', 'action' => 'view', $permissions->id]) ?>

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -51,6 +52,11 @@ class UsersTable extends Table
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'permission_id',
             'joinTable' => 'users_permissions',
+        ]);
+        $this->belongsToMany('Roles', [
+            'foreignKey' => 'user_id',
+            'targetForeignKey' => 'role_id',
+            'joinTable' => 'users_roles',
         ]);
     }
 

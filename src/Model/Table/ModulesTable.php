@@ -41,7 +41,7 @@ class ModulesTable extends Table
         parent::initialize($config);
 
         $this->setTable('modules');
-        $this->setDisplayField('id');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->hasMany('Permissions', [
@@ -58,7 +58,7 @@ class ModulesTable extends Table
                 'comparison' => 'LIKE',
                 'wildcardAny' => '*',
                 'wildcardOne' => '?',
-                'fields' => ['code', 'name', 'table_name'],
+                'fields' => ['name', 'table_name'],
             ]);
     }
 
@@ -73,13 +73,6 @@ class ModulesTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
-
-        $validator
-            ->scalar('code')
-            ->maxLength('code', 10)
-            ->requirePresence('code', 'create')
-            ->notEmptyString('code')
-            ->add('code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('name')
@@ -108,7 +101,6 @@ class ModulesTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['name']), ['errorField' => 'name']);
-        $rules->add($rules->isUnique(['code']), ['errorField' => 'code']);
         $rules->add($rules->isUnique(['table_name']), ['errorField' => 'table_name']);
 
         return $rules;

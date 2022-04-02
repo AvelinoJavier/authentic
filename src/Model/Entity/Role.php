@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Entity;
@@ -27,5 +28,6 @@ class Role extends Entity
     protected $_accessible = [
         'name' => true,
         'permissions' => true,
+        'users' => true
     ];
 }

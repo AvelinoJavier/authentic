@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Permission[]|\Cake\Collection\CollectionInterface $permissions
@@ -8,29 +9,43 @@
     <?= $this->Html->link(__('New Permission'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Permissions') ?></h3>
     <div class="table-responsive">
+        <?= $this->Form->create(null, ['valueSources' => 'query']) ?>
+        <div class="container">
+            <div class="row">
+                <?= $this->Form->control('search', [
+                    'type' => 'search',
+                    'placeholder' => __('Buscar'),
+                    'label' => false,
+                    'style' => 'border-top-right-radius: 0; border-bottom-right-radius: 0;',
+                    'templates' => [
+                        'inputContainer' => '{{content}}'
+                    ]
+                ]) ?>
+                <button type="submit" style="border-top-left-radius: 0; border-bottom-left-radius: 0;"><i class="fa-solid fa-search"></i> <?= __('Buscar') ?></button>
+            </div>
+        </div>
+        <?= $this->Form->end() ?>
         <table>
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('action') ?></th>
-                    <th><?= $this->Paginator->sort('controller') ?></th>
-                    <th><?= $this->Paginator->sort('module_id') ?></th>
+                    <th><?= $this->Paginator->sort('Modules.name') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($permissions as $permission): ?>
-                <tr>
-                    <td><?= $this->Number->format($permission->id) ?></td>
-                    <td><?= h($permission->action) ?></td>
-                    <td><?= h($permission->controller) ?></td>
-                    <td><?= $permission->has('module') ? $this->Html->link($permission->module->id, ['controller' => 'Modules', 'action' => 'view', $permission->module->id]) : '' ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $permission->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $permission->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $permission->id], ['confirm' => __('Are you sure you want to delete # {0}?', $permission->id)]) ?>
-                    </td>
-                </tr>
+                <?php foreach ($permissions as $permission) : ?>
+                    <tr>
+                        <td><?= $this->Number->format($permission->id) ?></td>
+                        <td><?= h($permission->action) ?></td>
+                        <td><?= $permission->has('module') ? $this->Html->link($permission->module->name, ['controller' => 'Modules', 'action' => 'view', $permission->module->id]) : '' ?></td>
+                        <td class="actions">
+                            <?= $this->Html->link(__('View'), ['action' => 'view', $permission->id]) ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $permission->id]) ?>
+                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $permission->id], ['confirm' => __('Are you sure you want to delete # {0}?', $permission->id)]) ?>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

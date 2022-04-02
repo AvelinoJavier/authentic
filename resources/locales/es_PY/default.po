@@ -39,12 +39,6 @@ msgstr "Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{co
 msgid "Please enter your email and password"
 msgstr "Por favor ingrese su email y contraseña"
 
-msgid "code"
-msgstr "código"
-
-msgid "Code"
-msgstr "Código"
-
 msgid "name"
 msgstr "nombre"
 
@@ -60,6 +54,9 @@ msgstr "Nombre Tabla"
 msgid "created"
 msgstr "creado"
 
+msgid "Created"
+msgstr "Creado"
+
 msgid "Ir a Módulo"
 msgstr "Ir a Módulo"
 
@@ -74,6 +71,12 @@ msgstr "Contraseña"
 
 msgid "Login"
 msgstr "Ingresar"
+
+msgid "Action"
+msgstr "Acción"
+
+msgid "Module"
+msgstr "Módulo"
 
 ########## modules ##########
 
@@ -139,6 +142,9 @@ msgstr "El rol ha sido eliminado."
 msgid "The role could not be deleted. Please, try again."
 msgstr "El rol no ha podido ser eliminado. Por favor, pruebe de nuevo."
 
+msgid "Related Roles"
+msgstr "Roles Relacionados"
+
 ########## permissions ##########
 
 msgid "Permissions"
@@ -171,6 +177,9 @@ msgstr "El permiso ha sido eliminado."
 msgid "The permission could not be deleted. Please, try again."
 msgstr "El permiso no ha podido ser eliminado. Por favor, pruebe de nuevo."
 
+msgid "Related Permissions"
+msgstr "Permisos Relacionados"
+
 ########## users ##########
 
 msgid "Users"
@@ -202,3 +211,6 @@ msgstr "El usuario ha sido eliminado."
 
 msgid "The user could not be deleted. Please, try again."
 msgstr "El usuario no ha podido ser eliminado. Por favor, pruebe de nuevo."
+
+msgid "Related Users"
+msgstr "Usuarios Relacionados"

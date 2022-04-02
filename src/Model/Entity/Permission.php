@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Entity;
@@ -10,7 +11,6 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $action
- * @property string $controller
  * @property int $module_id
  *
  * @property \App\Model\Entity\Module $module
@@ -30,10 +30,14 @@ class Permission extends Entity
      */
     protected $_accessible = [
         'action' => true,
-        'controller' => true,
         'module_id' => true,
         'module' => true,
         'roles' => true,
         'users' => true,
     ];
+
+    protected function _getControllerAction()
+    {
+        return $this->module->name . ' - ' . $this->action;
+    }
 }

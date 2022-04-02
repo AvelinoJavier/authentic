@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -42,7 +43,7 @@ class PermissionsTable extends Table
         parent::initialize($config);
 
         $this->setTable('permissions');
-        $this->setDisplayField('id');
+        $this->setDisplayField('controller_action');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Modules', [
@@ -59,6 +60,19 @@ class PermissionsTable extends Table
             'targetForeignKey' => 'user_id',
             'joinTable' => 'users_permissions',
         ]);
+
+        $this->addBehavior('Search.Search');
+
+        $this->searchManager()
+            ->add('search', 'Search.Like', [
+                'before' => true,
+                'after' => true,
+                'mode' => 'or',
+                'comparison' => 'LIKE',
+                'wildcardAny' => '*',
+                'wildcardOne' => '?',
+                'fields' => ['action', 'Modules.name'],
+            ]);
     }
 
     /**
@@ -79,12 +93,6 @@ class PermissionsTable extends Table
             ->requirePresence('action', 'create')
             ->notEmptyString('action');
 
-        $validator
-            ->scalar('controller')
-            ->maxLength('controller', 50)
-            ->requirePresence('controller', 'create')
-            ->notEmptyString('controller');
-
         return $validator;
     }
 
@@ -97,7 +105,7 @@ class PermissionsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['action', 'module_id', 'controller']), ['errorField' => 'action']);
+        $rules->add($rules->isUnique(['action', 'module_id']), ['errorField' => 'action']);
         $rules->add($rules->existsIn('module_id', 'Modules'), ['errorField' => 'module_id']);
 
         return $rules;

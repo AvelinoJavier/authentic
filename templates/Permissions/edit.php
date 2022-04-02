@@ -26,7 +26,6 @@
                 <legend><?= __('Edit Permission') ?></legend>
                 <?php
                     echo $this->Form->control('action');
-                    echo $this->Form->control('controller');
                     echo $this->Form->control('module_id', ['options' => $modules]);
                     echo $this->Form->control('roles._ids', ['options' => $roles]);
                     echo $this->Form->control('users._ids', ['options' => $users]);

@@ -29,7 +29,6 @@
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('code') ?></th>
                     <th><?= $this->Paginator->sort('name') ?></th>
                     <th><?= $this->Paginator->sort('table_name') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -39,7 +38,6 @@
                 <?php foreach ($modules as $module) : ?>
                     <tr>
                         <td><?= $this->Number->format($module->id) ?></td>
-                        <td><?= h($module->code) ?></td>
                         <td><?= h($module->name) ?></td>
                         <td><?= h($module->table_name) ?></td>
                         <td class="actions">

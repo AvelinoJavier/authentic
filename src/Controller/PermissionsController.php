@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -11,6 +12,22 @@ namespace App\Controller;
  */
 class PermissionsController extends AppController
 {
+    public $paginate = [
+        'limit' => 10,
+        'order' => [
+            'Modules.name' => 'asc'
+        ]
+    ];
+
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        $this->loadComponent('Search.Search', [
+            'actions' => ['index'],
+        ]);
+    }
+
     /**
      * Index method
      *
@@ -18,12 +35,10 @@ class PermissionsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Modules'],
-        ];
-        $permissions = $this->paginate($this->Permissions);
+        $query = $this->Permissions
+            ->find('search', ['search' => $this->request->getQueryParams()])->contain('Modules');
 
-        $this->set(compact('permissions'));
+        $this->set('permissions', $this->paginate($query));
     }
 
     /**

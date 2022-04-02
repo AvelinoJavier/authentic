@@ -18,7 +18,6 @@
             <fieldset>
                 <legend><?= __('Add Module') ?></legend>
                 <?php
-                echo $this->Form->control('code', ['onkeyup' => 'toUppercase(this)']);
                 echo $this->Form->control('name');
                 echo $this->Form->control('table_name');
                 ?>

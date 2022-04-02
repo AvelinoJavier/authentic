@@ -16,19 +16,15 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="permissions view content">
-            <h3><?= h($permission->id) ?></h3>
+            <h3><?= h($permission->controller_action) ?></h3>
             <table>
                 <tr>
                     <th><?= __('Action') ?></th>
                     <td><?= h($permission->action) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Controller') ?></th>
-                    <td><?= h($permission->controller) ?></td>
-                </tr>
-                <tr>
                     <th><?= __('Module') ?></th>
-                    <td><?= $permission->has('module') ? $this->Html->link($permission->module->id, ['controller' => 'Modules', 'action' => 'view', $permission->module->id]) : '' ?></td>
+                    <td><?= $permission->has('module') ? $this->Html->link($permission->module->name, ['controller' => 'Modules', 'action' => 'view', $permission->module->id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>
@@ -68,7 +64,6 @@
                         <tr>
                             <th><?= __('Id') ?></th>
                             <th><?= __('Email') ?></th>
-                            <th><?= __('Password') ?></th>
                             <th><?= __('Created') ?></th>
                             <th><?= __('Name') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
@@ -77,7 +72,6 @@
                         <tr>
                             <td><?= h($users->id) ?></td>
                             <td><?= h($users->email) ?></td>
-                            <td><?= h($users->password) ?></td>
                             <td><?= h($users->created) ?></td>
                             <td><?= h($users->name) ?></td>
                             <td class="actions">

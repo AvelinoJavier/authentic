@@ -9,7 +9,6 @@ use Cake\ORM\Entity;
  * Module Entity
  *
  * @property int $id
- * @property string $code
  * @property string $name
  * @property string $table_name
  *
@@ -27,7 +26,6 @@ class Module extends Entity
      * @var array
      */
     protected $_accessible = [
-        'code' => true,
         'name' => true,
         'table_name' => true,
         'permissions' => true,
