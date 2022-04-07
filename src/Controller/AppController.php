@@ -51,6 +51,9 @@ class AppController extends Controller
 
         $this->loadComponent('Authorization.Authorization');
 
+        $allModules = $this->fetchTable('Modules')->find('all', ['order' => 'Modules.name']);
+        $this->set(compact('allModules'));
+
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html

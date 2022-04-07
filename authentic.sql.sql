@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-03-2022 a las 13:47:04
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 8.0.12
+-- Tiempo de generación: 07-04-2022 a las 04:23:20
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `authentic`
+-- Base de datos: `votacionhcd`
 --
 
 -- --------------------------------------------------------
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `modules` (
   `id` int(11) NOT NULL,
-  `code` varchar(10) NOT NULL,
   `name` varchar(50) NOT NULL,
   `table_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -38,11 +37,11 @@ CREATE TABLE `modules` (
 -- Volcado de datos para la tabla `modules`
 --
 
-INSERT INTO `modules` (`id`, `code`, `name`, `table_name`) VALUES
-(1, 'MOD', 'Módulos', 'modules'),
-(2, 'PERM', 'Permisos', 'permissions'),
-(3, 'USER', 'Usuarios', 'users'),
-(4, 'ROLE', 'Roles', 'roles');
+INSERT INTO `modules` (`id`, `name`, `table_name`) VALUES
+(1, 'Módulos', 'modules'),
+(2, 'Permisos', 'permissions'),
+(3, 'Usuarios', 'users'),
+(4, 'Roles', 'roles');
 
 -- --------------------------------------------------------
 
@@ -53,9 +52,34 @@ INSERT INTO `modules` (`id`, `code`, `name`, `table_name`) VALUES
 CREATE TABLE `permissions` (
   `id` int(11) NOT NULL,
   `action` varchar(50) NOT NULL,
-  `controller` varchar(50) NOT NULL,
   `module_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `action`, `module_id`) VALUES
+(3, 'add', 1),
+(8, 'add', 2),
+(18, 'add', 3),
+(13, 'add', 4),
+(5, 'delete', 1),
+(10, 'delete', 2),
+(20, 'delete', 3),
+(15, 'delete', 4),
+(4, 'edit', 1),
+(9, 'edit', 2),
+(19, 'edit', 3),
+(14, 'edit', 4),
+(1, 'index', 1),
+(6, 'index', 2),
+(16, 'index', 3),
+(11, 'index', 4),
+(2, 'view', 1),
+(7, 'view', 2),
+(17, 'view', 3),
+(12, 'view', 4);
 
 -- --------------------------------------------------------
 
@@ -68,6 +92,31 @@ CREATE TABLE `permissions_roles` (
   `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `permissions_roles`
+--
+
+INSERT INTO `permissions_roles` (`permission_id`, `role_id`) VALUES
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 1),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -78,6 +127,13 @@ CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`) VALUES
+(1, 'Administrador');
 
 -- --------------------------------------------------------
 
@@ -98,7 +154,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `created`, `name`) VALUES
-(1, 'javierflorentin_90@hotmail.com', '$2y$10$U3A70yepM8xETnaALTT1hedpGb911vOz/Bu90jAxCaS1y9c3RpQn.', '2022-02-17 03:04:11', 'Avelino Florentín');
+(1, 'javierflorentin_90@hotmail.com', '$2y$10$w163vh0tIlq5f5zHwu4LcegxnqRMedZHs1WE0vQE3cmmQ4kjkNIW.', '2022-03-28 12:13:20', 'Avelino Florentín');
 
 -- --------------------------------------------------------
 
@@ -112,6 +168,49 @@ CREATE TABLE `users_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Volcado de datos para la tabla `users_permissions`
+--
+
+INSERT INTO `users_permissions` (`user_id`, `permission_id`) VALUES
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
+(1, 16),
+(1, 17),
+(1, 18),
+(1, 19),
+(1, 20);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users_roles`
+--
+
+CREATE TABLE `users_roles` (
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `users_roles`
+--
+
+INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES
+(1, 1);
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -120,7 +219,6 @@ CREATE TABLE `users_permissions` (
 --
 ALTER TABLE `modules`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `code` (`code`),
   ADD UNIQUE KEY `name` (`name`),
   ADD UNIQUE KEY `table_name` (`table_name`);
 
@@ -129,14 +227,14 @@ ALTER TABLE `modules`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `action` (`action`,`module_id`,`controller`),
+  ADD UNIQUE KEY `action` (`action`,`module_id`) USING BTREE,
   ADD KEY `module_id` (`module_id`);
 
 --
 -- Indices de la tabla `permissions_roles`
 --
 ALTER TABLE `permissions_roles`
-  ADD KEY `permission_id` (`permission_id`),
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
   ADD KEY `role_id` (`role_id`);
 
 --
@@ -158,8 +256,15 @@ ALTER TABLE `users`
 -- Indices de la tabla `users_permissions`
 --
 ALTER TABLE `users_permissions`
-  ADD KEY `user_id` (`user_id`),
+  ADD PRIMARY KEY (`user_id`,`permission_id`),
   ADD KEY `permission_id` (`permission_id`);
+
+--
+-- Indices de la tabla `users_roles`
+--
+ALTER TABLE `users_roles`
+  ADD PRIMARY KEY (`user_id`,`role_id`),
+  ADD KEY `role_id` (`role_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -175,13 +280,13 @@ ALTER TABLE `modules`
 -- AUTO_INCREMENT de la tabla `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -212,6 +317,13 @@ ALTER TABLE `permissions_roles`
 ALTER TABLE `users_permissions`
   ADD CONSTRAINT `users_permissions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `users_permissions_ibfk_2` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`);
+
+--
+-- Filtros para la tabla `users_roles`
+--
+ALTER TABLE `users_roles`
+  ADD CONSTRAINT `users_roles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `users_roles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

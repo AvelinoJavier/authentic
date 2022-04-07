@@ -4,6 +4,7 @@ namespace App\Policy;
 
 use Authorization\Policy\RequestPolicyInterface;
 use Cake\Http\ServerRequest;
+use Cake\Datasource\FactoryLocator;
 
 class RequestPolicy implements RequestPolicyInterface
 {
@@ -16,13 +17,67 @@ class RequestPolicy implements RequestPolicyInterface
      */
     public function canAccess($identity, ServerRequest $request)
     {
-        if (
-            $request->getParam('controller') === 'Articles'
-            && $request->getParam('action') === 'index'
-        ) {
-            return true;
-        }
+        $identityId = $identity?->get('id');
 
-        return true;
+        $action = $request->getParam('action');
+        $tableName = lcfirst($request->getParam('controller'));
+
+        $authExceptions = $action == 'login' && $tableName == 'users';
+
+        debug(FactoryLocator::get('Table')
+            ->get('Permissions')
+            ->find('all')
+            ->where(
+                [
+                    'Permissions.action' => $action,
+                    'Modules.table_name' => $tableName
+                ]
+            )
+            ->contain(['Modules'])
+            ->leftJoinWith('Roles.Users', function ($q) use ($identityId) {
+                return $q->where(['Users.id' => $identityId]);
+            }));
+
+        return $identity == null
+            || $authExceptions
+            || !FactoryLocator::get('Table')
+                ->get('Permissions')
+                ->find('all')
+                ->where(
+                    [
+                        'Permissions.action' => $action,
+                        'Modules.table_name' => $tableName
+                    ]
+                )
+                ->contain(['Modules'])
+                ->leftJoinWith('Roles.Users', function ($q) use ($identityId) {
+                    return $q->where(['Users.id' => $identityId]);
+                })
+                ->leftJoinWith('Users', function ($q) use ($identityId) {
+                    return $q->where(['Users.id' => $identityId]);
+                })
+                ->isEmpty();
+        /*$permissionsTable = FactoryLocator::get('Table')
+            ->get('Permissions')
+            ->find('all')
+            ->where(
+                [
+                    'Permissions.action' => $request->getParam('action'),
+                    'Modules.table_name' => $request->getParam('controller')
+                ]
+            )
+            ->contain(['Modules']);
+
+        return $identity == null || !($permissionsTable
+            ->matching('Users', function ($q) use ($identity) {
+                return $q->where(['Users.id' => $identity->get('id')]);
+            })
+            ->isEmpty()
+            &&
+            $permissionsTable
+            ->matching('Roles.Users', function ($q) use ($identity) {
+                return $q->where(['Users.id' => $identity->get('id')]);
+            })
+            ->isEmpty());*/
     }
 }
