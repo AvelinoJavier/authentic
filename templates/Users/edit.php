@@ -26,7 +26,7 @@
                     echo $this->Form->control('email');
                     echo $this->Form->control('password');
                     echo $this->Form->control('name');
-                    echo $this->Form->control('permissions._ids', ['options' => $permissions]);
+                    echo $this->Form->control('roles._ids', ['options' => $roles]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

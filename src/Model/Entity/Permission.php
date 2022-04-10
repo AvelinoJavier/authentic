@@ -32,8 +32,7 @@ class Permission extends Entity
         'action' => true,
         'module_id' => true,
         'module' => true,
-        'roles' => true,
-        'users' => true,
+        'roles' => true
     ];
 
     protected function _getControllerAction()

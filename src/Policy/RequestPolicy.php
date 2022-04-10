@@ -17,28 +17,14 @@ class RequestPolicy implements RequestPolicyInterface
      */
     public function canAccess($identity, ServerRequest $request)
     {
-        $identityId = $identity?->get('id');
+        $identityId = $identity ? $identity->get('id') : '';
 
         $action = $request->getParam('action');
         $tableName = lcfirst($request->getParam('controller'));
 
         $authExceptions = $action == 'login' && $tableName == 'users';
 
-        debug(FactoryLocator::get('Table')
-            ->get('Permissions')
-            ->find('all')
-            ->where(
-                [
-                    'Permissions.action' => $action,
-                    'Modules.table_name' => $tableName
-                ]
-            )
-            ->contain(['Modules'])
-            ->leftJoinWith('Roles.Users', function ($q) use ($identityId) {
-                return $q->where(['Users.id' => $identityId]);
-            }));
-
-        return $identity == null
+        return !$identityId
             || $authExceptions
             || !FactoryLocator::get('Table')
                 ->get('Permissions')
@@ -50,34 +36,9 @@ class RequestPolicy implements RequestPolicyInterface
                     ]
                 )
                 ->contain(['Modules'])
-                ->leftJoinWith('Roles.Users', function ($q) use ($identityId) {
-                    return $q->where(['Users.id' => $identityId]);
-                })
-                ->leftJoinWith('Users', function ($q) use ($identityId) {
+                ->innerJoinWith('Roles.Users', function ($q) use ($identityId) {
                     return $q->where(['Users.id' => $identityId]);
                 })
                 ->isEmpty();
-        /*$permissionsTable = FactoryLocator::get('Table')
-            ->get('Permissions')
-            ->find('all')
-            ->where(
-                [
-                    'Permissions.action' => $request->getParam('action'),
-                    'Modules.table_name' => $request->getParam('controller')
-                ]
-            )
-            ->contain(['Modules']);
-
-        return $identity == null || !($permissionsTable
-            ->matching('Users', function ($q) use ($identity) {
-                return $q->where(['Users.id' => $identity->get('id')]);
-            })
-            ->isEmpty()
-            &&
-            $permissionsTable
-            ->matching('Roles.Users', function ($q) use ($identity) {
-                return $q->where(['Users.id' => $identity->get('id')]);
-            })
-            ->isEmpty());*/
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -14,7 +13,6 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\ModulesTable&\Cake\ORM\Association\BelongsTo $Modules
  * @property \App\Model\Table\RolesTable&\Cake\ORM\Association\BelongsToMany $Roles
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsToMany $Users
  *
  * @method \App\Model\Entity\Permission newEmptyEntity()
  * @method \App\Model\Entity\Permission newEntity(array $data, array $options = [])
@@ -54,11 +52,6 @@ class PermissionsTable extends Table
             'foreignKey' => 'permission_id',
             'targetForeignKey' => 'role_id',
             'joinTable' => 'permissions_roles',
-        ]);
-        $this->belongsToMany('Users', [
-            'foreignKey' => 'permission_id',
-            'targetForeignKey' => 'user_id',
-            'joinTable' => 'users_permissions',
         ]);
 
         $this->addBehavior('Search.Search');

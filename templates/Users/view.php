@@ -37,33 +37,6 @@
                 </tr>
             </table>
             <div class="related">
-                <h4><?= __('Related Permissions') ?></h4>
-                <?php if (!empty($user->permissions)) : ?>
-                    <div class="table-responsive">
-                        <table>
-                            <tr>
-                                <th><?= __('Id') ?></th>
-                                <th><?= __('Action') ?></th>
-                                <th><?= __('Module Id') ?></th>
-                                <th class="actions"><?= __('Actions') ?></th>
-                            </tr>
-                            <?php foreach ($user->permissions as $permissions) : ?>
-                                <tr>
-                                    <td><?= h($permissions->id) ?></td>
-                                    <td><?= h($permissions->action) ?></td>
-                                    <td><?= h($permissions->module_id) ?></td>
-                                    <td class="actions">
-                                        <?= $this->Html->link(__('View'), ['controller' => 'Permissions', 'action' => 'view', $permissions->id]) ?>
-                                        <?= $this->Html->link(__('Edit'), ['controller' => 'Permissions', 'action' => 'edit', $permissions->id]) ?>
-                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Permissions', 'action' => 'delete', $permissions->id], ['confirm' => __('Are you sure you want to delete # {0}?', $permissions->id)]) ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </table>
-                    </div>
-                <?php endif; ?>
-            </div>
-            <div class="related">
                 <h4><?= __('Related Roles') ?></h4>
                 <?php if (!empty($user->roles)) : ?>
                     <div class="table-responsive">

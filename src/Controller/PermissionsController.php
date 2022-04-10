@@ -51,7 +51,7 @@ class PermissionsController extends AppController
     public function view($id = null)
     {
         $permission = $this->Permissions->get($id, [
-            'contain' => ['Modules', 'Roles', 'Users'],
+            'contain' => ['Modules', 'Roles'],
         ]);
 
         $this->set(compact('permission'));
@@ -76,8 +76,7 @@ class PermissionsController extends AppController
         }
         $modules = $this->Permissions->Modules->find('list', ['limit' => 200])->all();
         $roles = $this->Permissions->Roles->find('list', ['limit' => 200])->all();
-        $users = $this->Permissions->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('permission', 'modules', 'roles', 'users'));
+        $this->set(compact('permission', 'modules', 'roles'));
     }
 
     /**
@@ -90,7 +89,7 @@ class PermissionsController extends AppController
     public function edit($id = null)
     {
         $permission = $this->Permissions->get($id, [
-            'contain' => ['Roles', 'Users'],
+            'contain' => ['Roles'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $permission = $this->Permissions->patchEntity($permission, $this->request->getData());
@@ -103,8 +102,7 @@ class PermissionsController extends AppController
         }
         $modules = $this->Permissions->Modules->find('list', ['limit' => 200])->all();
         $roles = $this->Permissions->Roles->find('list', ['limit' => 200])->all();
-        $users = $this->Permissions->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('permission', 'modules', 'roles', 'users'));
+        $this->set(compact('permission', 'modules', 'roles'));
     }
 
     /**
