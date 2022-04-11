@@ -17,6 +17,7 @@ declare(strict_types=1);
  */
 
 namespace App;
+
 use App\Policy\RequestPolicy;
 
 use Cake\Core\Configure;
@@ -32,17 +33,21 @@ use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Router;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
+use Cake\Utility\Security;
+
 use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Identifier\IdentifierInterface;
 use Authentication\Middleware\AuthenticationMiddleware;
+
 use Authorization\AuthorizationService;
 use Authorization\AuthorizationServiceInterface;
 use Authorization\AuthorizationServiceProviderInterface;
 use Authorization\Middleware\AuthorizationMiddleware;
 use Authorization\Middleware\RequestAuthorizationMiddleware;
 use Authorization\Policy\MapResolver;
+
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -94,6 +99,15 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
      */
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
+        $csrf = new CsrfProtectionMiddleware([
+            'httponly' => true,
+        ]);
+        $csrf->skipCheckCallback(function ($request) {
+            if ($request->is('json')) {
+                return true;
+            }
+        });
+
         $middlewareQueue
             // Catch any exceptions in the lower layers,
             // and make an error page/response
@@ -121,9 +135,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
             // Cross Site Request Forgery (CSRF) Protection Middleware
             // https://book.cakephp.org/4/en/controllers/middleware.html#cross-site-request-forgery-csrf-middleware
-            ->add(new CsrfProtectionMiddleware([
-                'httponly' => true,
-            ]))
+            ->add($csrf)
 
             ->add(new AuthorizationMiddleware($this))
 
@@ -170,35 +182,54 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     {
         $service = new AuthenticationService();
 
-        // Define where users should be redirected to when they are not authenticated
-        $service->setConfig([
-            'unauthenticatedRedirect' => Router::url([
-                'prefix' => false,
-                'plugin' => null,
-                'controller' => 'Users',
-                'action' => 'login',
-            ]),
-            'queryParam' => 'redirect',
-        ]);
-
         $fields = [
             IdentifierInterface::CREDENTIAL_USERNAME => 'email',
             IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
         ];
-        // Load the authenticators. Session should be first.
-        $service->loadAuthenticator('Authentication.Session');
-        $service->loadAuthenticator('Authentication.Form', [
-            'fields' => $fields,
-            'loginUrl' => Router::url([
-                'prefix' => false,
-                'plugin' => null,
-                'controller' => 'Users',
-                'action' => 'login',
-            ]),
-        ]);
 
-        // Load identifiers
-        $service->loadIdentifier('Authentication.Password', compact('fields'));
+        if ($this->request->is('json')) {
+            // Load the authenticators.
+            $service->loadAuthenticator('Authentication.Jwt', [
+                'secretKey' => Security::getSalt(),
+                'returnPayload' => false,
+            ]);
+            $service->loadAuthenticator('Authentication.Form', [
+                'fields' => $fields,
+            ]);
+
+            // Load identifiers
+            $service->loadIdentifier('Authentication.JwtSubject');
+            $service->loadIdentifier('Authentication.Password', [
+                'returnPayload' => false,
+                'fields' => $fields,
+            ]);
+        } else {
+            // Define where users should be redirected to when they are not authenticated
+            $service->setConfig([
+                'unauthenticatedRedirect' => Router::url([
+                    'prefix' => false,
+                    'plugin' => null,
+                    'controller' => 'Users',
+                    'action' => 'login',
+                ]),
+                'queryParam' => 'redirect',
+            ]);
+
+            // Load the authenticators. Session should be first.
+            $service->loadAuthenticator('Authentication.Session');
+            $service->loadAuthenticator('Authentication.Form', [
+                'fields' => $fields,
+                'loginUrl' => Router::url([
+                    'prefix' => false,
+                    'plugin' => null,
+                    'controller' => 'Users',
+                    'action' => 'login',
+                ]),
+            ]);
+
+            // Load identifiers
+            $service->loadIdentifier('Authentication.Password', compact('fields'));
+        }
 
         return $service;
     }
@@ -207,7 +238,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     {
         $mapResolver = new MapResolver();
         $mapResolver->map(ServerRequest::class, RequestPolicy::class);
-        
+
         return new AuthorizationService($mapResolver);
     }
 }

@@ -84,6 +84,9 @@ class UsersTable extends Table
             ->notEmptyString('name')
             ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
+        $validator
+            ->add('admin', 'boolean', ['rule' => 'boolean']);
+
         return $validator;
     }
 

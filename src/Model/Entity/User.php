@@ -35,7 +35,8 @@ class User extends Entity
         'password' => true,
         'created' => true,
         'name' => true,
-        'roles' => true
+        'roles' => true,
+        'admin' => true
     ];
 
     /**
@@ -49,7 +50,8 @@ class User extends Entity
 
     protected function _setPassword(string $password)
     {
-        $hasher = new DefaultPasswordHasher();
-        return $hasher->hash($password);
+        if (strlen($password) > 0) {
+            return (new DefaultPasswordHasher())->hash($password);
+        }
     }
 }

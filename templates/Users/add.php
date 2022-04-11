@@ -22,6 +22,7 @@
                     echo $this->Form->control('password');
                     echo $this->Form->control('name');
                     echo $this->Form->control('roles._ids', ['options' => $roles]);
+                    echo $this->Form->control('admin');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

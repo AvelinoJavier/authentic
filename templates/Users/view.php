@@ -35,6 +35,10 @@
                     <th><?= __('Created') ?></th>
                     <td><?= h($user->created) ?></td>
                 </tr>
+                <tr>
+                    <th><?= __('Admin') ?></th>
+                    <td><?= $user->admin ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>' ?></td>
+                </tr>
             </table>
             <div class="related">
                 <h4><?= __('Related Roles') ?></h4>

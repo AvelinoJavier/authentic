@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Routes configuration.
  *
@@ -88,4 +89,9 @@ return static function (RouteBuilder $routes) {
      * });
      * ```
      */
+    $routes->scope('/api', function (RouteBuilder $builder) {
+        $builder->setExtensions(['json']);
+
+        $builder->fallbacks();
+    });
 };

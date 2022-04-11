@@ -39,6 +39,9 @@ msgstr "Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{co
 msgid "Please enter your email and password"
 msgstr "Por favor ingrese su email y contraseña"
 
+msgid "Invalid username or password"
+msgstr "Email o contraseña incorrectos"
+
 msgid "name"
 msgstr "nombre"
 

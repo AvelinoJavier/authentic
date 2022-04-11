@@ -18,13 +18,16 @@ class RequestPolicy implements RequestPolicyInterface
     public function canAccess($identity, ServerRequest $request)
     {
         $identityId = $identity ? $identity->get('id') : '';
+        $identityIsAdmin = $identity ? $identity->get('admin') : '';
 
         $action = $request->getParam('action');
         $tableName = lcfirst($request->getParam('controller'));
 
-        $authExceptions = $action == 'login' && $tableName == 'users';
+        $authExceptions = $action == 'login' && $tableName == 'users'
+            || $action == 'logout' && $tableName == 'users';
 
         return !$identityId
+            || $identityIsAdmin
             || $authExceptions
             || !FactoryLocator::get('Table')
                 ->get('Permissions')

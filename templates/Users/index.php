@@ -16,6 +16,7 @@
                     <th><?= $this->Paginator->sort('email') ?></th>
                     <th><?= $this->Paginator->sort(__('name')) ?></th>
                     <th><?= $this->Paginator->sort(__('created')) ?></th>
+                    <th><?= $this->Paginator->sort(__('admin')) ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@
                         <td><?= h($user->email) ?></td>
                         <td><?= h($user->name) ?></td>
                         <td><?= h($user->created) ?></td>
+                        <td><?= $user->admin ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>' ?></td>
                         <td class="actions">
                             <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
                             <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
