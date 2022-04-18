@@ -187,7 +187,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
         ];
 
-        if ($this->request->is('json')) {
+        if ($request->getHeaderLine('Content-Type') == 'application/json') {
             // Load the authenticators.
             $service->loadAuthenticator('Authentication.Jwt', [
                 'secretKey' => Security::getSalt(),
